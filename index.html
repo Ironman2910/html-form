@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <style>
+      *,
+      *::after,
+      *::before {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: serif;
+      }
+      html {
+        font-size: 16px;
+        width: 100%;
+      }
+      body {
+        font-size: inherit;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        background-image: linear-gradient(
+          to bottom right,
+          lightblue,
+          steelblue,
+          rgba(0, 0, 255, 0.6),
+          rgba(0, 0, 255, 0.7)
+        );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        /*min and max width,height hv to set*/
+        font-size: inherit;
+        width: 25vw;
+        height: 70vh;
+        padding: 3%;
+        background-color: white;
+        border-radius: 13px;
+        box-shadow: 2px 2px 15px black;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(5, 0.5fr) 1fr 0.5fr;
+      }
+
+      .heading {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+      }
+
+      .heading > h1 {
+        white-space: nowrap;
+        font-size: 16px;
+        font-weight: 900;
+      }
+
+      .submit-form {
+        width: 100%;
+        grid-row-start: 2;
+        grid-row-end: 5;
+      }
+
+      .submit-form > form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        justify-content: space-evenly;
+      }
+
+      .submit-form > form > .form-action {
+        width: 100%;
+        flex-basis: 30%;
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      input {
+        width: 100%;
+        height: 50%;
+        border: none;
+        border-bottom: 1px solid black;
+        text-overflow: ellipsis;
+        font-size: 16px;
+      }
+
+      input::placeholder {
+        color: transparent;
+      }
+
+      .form-label {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        user-select: none;
+        /* z-index: -100; */
+      }
+
+      input:focus {
+        outline: none;
+        border-bottom: 1px solid yellow;
+      }
+
+      input:focus:invalid,
+      input:invalid {
+        outline: none;
+        border-bottom: 1px solid red;
+      }
+
+      input:focus:valid,
+      input:valid {
+        outline: none;
+        border-bottom: 1px solid green;
+      }
+
+      input:invalid + .form-label,
+      input:valid + .form-label {
+        top: 25%;
+        transform: translateY(-50%);
+      }
+
+      input:placeholder-shown {
+        outline: none;
+        border-bottom: 1px solid black;
+      }
+
+      input:placeholder-shown + .form-label {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      input:focus + .form-label {
+        top: 25%;
+        transform: translateY(-50%);
+      }
+
+      input:placeholder-shown + .form-label > span {
+        color: black;
+      }
+
+      .form-action-text > span {
+        font-size: 13px;
+      }
+
+      .form-forgot-pswrd > span > a {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        font-size: 13px;
+        text-decoration: none;
+        color: black;
+      }
+
+      .submit-form > form > .form-action:nth-of-type(3) > button {
+        width: 100%;
+        height: 70%;
+        text-align: center;
+        color: white;
+        font-size: 13px;
+        font-weight: lighter;
+        border-radius: 13px;
+        background-image: linear-gradient(
+          to right,
+          rgba(0, 0, 255, 0.2),
+          rgba(0, 0, 255, 0.4),
+          rgba(0, 0, 255, 0.5)
+        );
+      }
+
+      .social-media-btns-container {
+        grid-row-start: 5;
+        grid-row-end: 6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .social-media-btns-container > .social-media-icon {
+        flex-basis: 15%;
+        background-color: red;
+        text-align: center;
+        margin: 0 5%;
+      }
+
+      div.social-median-btns-container-info {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+      }
+
+      div.social-median-btns-container-info span {
+        font-size: 13px;
+      }
+
+      .signup-container {
+        grid-row: 7 / span 1;
+
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .signup-container > a {
+        text-decoration: none;
+        color: black;
+      }
+
+      .signup-container > div {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .signup-container > div > span {
+        white-space: nowrap;
+      }
+
+      @media screen and (max-width: 920px) {
+        .container {
+          width: 50vw;
+        }
+      }
+
+      @media screen and (max-width: 520px) {
+        .container {
+          width: 80vw;
+        }
+      }
+
+      @media screen and (max-width: 320px) {
+        .container {
+          width: 80vw;
+          padding: 0%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="heading"><h1>Login</h1></div>
+
+      <div class="submit-form">
+        <form action="#">
+          <div class="form-action">
+            <input
+              type="text"
+              required
+              placeholder="Type your username"
+              pattern="[a-zA-Z0-9]{3,}"
+            />
+            <div class="form-label form-action-text"><span>Username</span></div>
+          </div>
+
+          <div class="form-action">
+            <input
+              type="text"
+              required
+              placeholder="Type your password"
+              pattern="[a-zA-Z0-9]{3,}"
+            />
+            <div class="form-label form-action-text"><span>Password</span></div>
+            <div class="form-forgot-pswrd form-action-text">
+              <span><a href="#">forgot password?</a></span>
+            </div>
+          </div>
+
+          <div class="form-action">
+            <button>LOGIN</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="social-media-btns-container">
+        <div class="social-media-icon">F</div>
+        <div class="social-media-icon">T</div>
+        <div class="social-media-icon">G</div>
+        <div class="social-median-btns-container-info">
+          <span>or sign up using</span>
+        </div>
+      </div>
+
+      <div class="signup-container">
+        <a href="#">SIGN UP</a>
+        <div class="signup-container-info"><span>or sign up using</span></div>
+      </div>
+    </div>
+  </body>
+</html>
